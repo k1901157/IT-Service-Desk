@@ -191,18 +191,8 @@ namespace WS5_Cars_Inheritance
             }
             Console.WriteLine();
 
-                //rendom numbers for tickets.
-
-                UseStatic();
-        }
-
-        static Random _random = new Random();
-        static void UseStatic()
-        {
-            //When this method is called many times, it still has good Randoms.
-            int result = _random.Next();
-            // If this method declared a local Random, it would repeat itself.
-            Console.WriteLine($"your Ticket Number is: " +"T"+ result);
+            //rendom numbers for tickets.
+            Console.WriteLine($"Your Ticket Number is " + "T-" + Ticket.getTiketNumber());
         }
 
     }
