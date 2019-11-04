@@ -24,13 +24,11 @@ namespace IT_Service_Desk
         //Max number of devices or Orders to be ordered by customers.
         private const int MAX_DEVICE = 1; 
 
-        public Order(string deviceType, string deviceTypeJustifiation, string accessoriesType, string accessoriesTypeJustifiation) : base()
+        public Order(string deviceType, string deviceTypeJustifiation ) : base()
         {
 
             _deviceType = deviceType;
             _deviceTypeJustifiation = deviceTypeJustifiation;
-            _accessoriesType = accessoriesType;
-            _accessoriesTypeJustifiation = accessoriesTypeJustifiation;
             _orderCount++; //once the Order has been created, Order counter will be increased from 0 to 1.
             _p5++; //once the Order has been created, P5 counter will be increased from 0 to 1.
 
@@ -69,16 +67,6 @@ namespace IT_Service_Desk
         public string getDeviceTypeJustification()
         {
             return _deviceTypeJustifiation;
-        }
-
-
-        public string getAccessoriesTypeJustification()
-        {
-            return _accessoriesTypeJustifiation;
-        }
-        public string getAccessoriesType()
-        {
-            return _accessoriesType;
         }
 
         public static int GetP5Count()

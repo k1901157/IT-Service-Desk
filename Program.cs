@@ -16,9 +16,9 @@ namespace WS5_Cars_Inheritance
             //asking the customer in enter the contact details.
             //calling Employee class
             List<Employee> employees = new List<Employee>();
-            
+
             Console.Write("ID: ");// the customer will enter ID.
-            int ID = int.Parse (Console.ReadLine());
+            int ID = int.Parse(Console.ReadLine());
 
             Console.Write("First Name : ");// the customer will enter First Name.
             string firstName = Console.ReadLine();
@@ -36,12 +36,6 @@ namespace WS5_Cars_Inheritance
             employees.Add(newEmployee);
 
 
-
-
-
-            
-            bool addTicket, incident;
-            //Ticket newTicket;
             //create a list for Tickets 
             List<Ticket> tickets = new List<Ticket>();
             //create a list for Incidents
@@ -49,86 +43,69 @@ namespace WS5_Cars_Inheritance
             //create a list for Orders
             List<Order> orderList = new List<Order>();
 
-            //keep looping until the customer says no.
+            int response;
+            //keep looping until the customer choose end.
             do
             {
-                //asking the customers if they would like to create a Ticket or not.
-                Console.Write("Create a new Ticket? (y/n)");
-                addTicket = Char.Parse(Console.ReadLine()) == 'y';
-
-                if (addTicket)//the customer creating new Ticket.
+                Console.WriteLine("1 - Incident");
+                Console.WriteLine("2 - Order");
+                Console.WriteLine("0 - End");
+                response = int.Parse(Console.ReadLine());
+                switch (response)
                 {
+                    // the customer creating new Incident.
+                    case 1:
 
-                    //asking the customers if they would like to create Incident OR Order?
-                    Console.Write("Enter Incident or Order? (i/o)");
-                    incident = Char.Parse(Console.ReadLine()) == 'i';
-
-                    if (incident)//the custome creating new Incident.
-                    {
                         //here the customer will choose what kind of issues he would like to escalated to IT Department.
-                        Console.Write("If you have Hardware issue please confirm by typing  (Hardware) : ");
-                        string hardwareIssue = Console.ReadLine();
-                        Console.Write("If you have Softdware issue please confirm by typing  (Software): ");
-                        string softwareIssue = Console.ReadLine();
-                        Console.Write("If you have Network issue please confirm by typing  (Network): ");
-                        string networkIssue = Console.ReadLine();
-                        Console.Write("If you issue not listed please typing  (Not Listed): ");
-                        string notListedIssue = Console.ReadLine();
+                        Console.Write("please Type your Issue (Hardware - Software -Network - Not Listed) : ");
+                        string Issue = Console.ReadLine();
+                        //here the customers can give more details about their issues.
                         Console.WriteLine("Explain more as possible as you can about your issue : ");
                         string writeEmail = Console.ReadLine();
+
                         //create new Incident.
-                        Incident newIncident = new Incident(hardwareIssue, softwareIssue, networkIssue, notListedIssue,writeEmail);
+                        Incident newIncident = new Incident(Issue, writeEmail);
                         incidentList.Add(newIncident);
 
-                    }
-                    else// the customer creating new Order.
-                    {
+                        break;
+
+                    // the customer creating new Order.
+                    case 2:
 
                         //here the custumers will choose what they would like to order.
-                        Console.WriteLine("Please choose then type the Device that you want to order " + "\n" +
-                                          "(Laptop - Desktop - IP Phone): ");
+                        Console.WriteLine("Please choose then type the Device/Accessory that you want to order " + "\n" +
+                                          "(Laptop - Desktop - IP Phone - Monitor - Keyboard - Mouse): ");
                         string deviceType = Console.ReadLine();
-
+                        //if the customers want to order many devices/accessories so they can mention in the Justification.
+                        //if the customer want to order devices/accessories on behalf of another customer also they can use the Justification .
                         Console.WriteLine("write Justification: ");
                         string deviceTypeJustification = Console.ReadLine();
 
-                        Console.WriteLine("Please choose then type the Accessory that you want to order" + "\n" +
-                                          "(Monitor - Keyboard - Mouse): ");
-                        string accessoriesType = Console.ReadLine();
-
-                        Console.WriteLine("write Justification: ");
-                        string accessoriesTypeJustification = Console.ReadLine();
                         //create new Order.
-                        Order newOrder = new Order(deviceType, deviceTypeJustification, accessoriesType, accessoriesTypeJustification);
+                        Order newOrder = new Order(deviceType, deviceTypeJustification);
                         orderList.Add(newOrder);
-                    }
-                    // here asking the customers to put the number of devices or accessories those they want to order.
-                    foreach (Order orders in orderList)
-                    {
-                        
-                        Console.Write($"number of {orders.getDeviseType()}s that you orderd: " );
 
-                        while (!orders.deviceRequirement(int.Parse(Console.ReadLine())))
+                        // here asking the customers to put the number of devices or accessories those they want to order.
+                        foreach (Order orders in orderList)
                         {
-                            Console.WriteLine("Invalid!"); //max number of devices to be order is 1.
-                            Console.Write($"number of devises(max 1!)  { orders.getDeviseType() }: ");
+
+                            Console.Write($"number of Devices/ Accessories ({orders.getDeviseType()})s that you want to order: ");
+
+                            while (!orders.deviceRequirement(int.Parse(Console.ReadLine())))
+                            {
+                                Console.WriteLine("Invalid!"); //max number of devices to be order is 1.
+                                Console.Write($"Maximum numbers of Devices/ Accessories ({ orders.getDeviseType() }) are 1: ");
+                            }
+
                         }
 
-                        Console.Write($"number of { orders.getAccessoriesType()}s that you orderd: ");
+                        break;
 
-                        while (!orders.deviceRequirement(int.Parse(Console.ReadLine())))
-                        {
-                            Console.WriteLine("Invalid!");//max number of accessories to be order is 1.
-                            Console.Write($"number of devises(max 1!) { orders.getDeviseType() }: ");
-                        }
-                        
-                    }
-
-
+                    default:
+                        break;
                 }
-
                 Console.WriteLine();
-            } while (addTicket);
+            } while (response > 0);
 
 
             //start printing required data.
@@ -166,34 +143,33 @@ namespace WS5_Cars_Inheritance
             //here we will print out all the Incident's details that we need.
             foreach (Incident incidents in incidentList)
             {
-                Console.WriteLine($"You have: {incidents.getHardwareIssue()} issue - \t  {incidents.getSoftwareIssue()} issue" +
-                                  $"issue - \t {incidents.getNetworkIssue()} issue - \t {incidents.getNotListedIssue()} issue");
+                Console.WriteLine($"You have: {incidents.getIssue()} issue \t");
                 Console.WriteLine();
-                Console.WriteLine("We will check your issue, and we will contact you as per Ticket priority");
+                Console.WriteLine($"Your Justification Email is: {incidents.getwriteEmail()}");
                 Console.WriteLine();
-                Console.WriteLine($"Your Justification Email was: {incidents.getwriteEmail()}");
+                Console.WriteLine("We will check your issue, and we will contact you as per your Ticket priority");
+                Console.WriteLine();
+                //rendom numbers (Incident Number) using Ticket Class.
+                Console.WriteLine($"Your Incident Number is " + "TO-" + Ticket.getTiketNumber());
+                Console.WriteLine();
             }
-            Console.WriteLine();
+
             //here we will print out all the Order's details that we need.
             foreach (Order orders in orderList)
             {
 
-                Console.WriteLine($"type of Devices that you have ordered {orders.getDeviseType()}" +
+                Console.WriteLine($"type of Devices/Accessories that you have ordered : {orders.getDeviseType()}" +
                     "\n" + $"with this Justification:  {orders.getDeviceTypeJustification()}");
                 Console.WriteLine();
-                Console.WriteLine($"type of Accessories you have ordered { orders.getAccessoriesType() }"
-                + "\n" + $"with this Justification: { orders.getAccessoriesTypeJustification()}");
+
+                Console.WriteLine("Once your order has been approved, you will recieve your device");
                 Console.WriteLine();
-                Console.WriteLine("Once your order has been approved, you will recieve your devise");
 
-
-
+                //rendom numbers (Order Number) using Ticket Class.
+                Console.WriteLine($"Your Order Number is " + "TO-" + Ticket.getTiketNumber());
+                Console.WriteLine();
             }
-            Console.WriteLine();
 
-            //rendom numbers for tickets.
-            Console.WriteLine($"Your Ticket Number is " + "T-" + Ticket.getTiketNumber());
         }
-
     }
 }

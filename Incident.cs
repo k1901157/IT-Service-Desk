@@ -6,13 +6,14 @@ namespace IT_Service_Desk
 {
     class Incident : Ticket
     {
-        
-        
+
+        private string _issue;
+        private string _writeEmail;
         private string _hardwareIssue;
         private string _softwareIssue;
         private string _networkIssue;
         private string _notListed;
-        private string _writeEmail;
+
 
 
         //initialize Incident counter.
@@ -26,16 +27,13 @@ namespace IT_Service_Desk
         private const int INT_INCIDENT = 1;
 
 
-        public Incident(string hardwareIssue, string softwareIssue, string networkIssue, string notListed, string writeEmail) : base()
+        public Incident(string Issue, string Email) : base()
         {
             _incidentCount++; //once the Incident has been created, Incident counter will be increased from 0 to 1.
-            _hardwareIssue = hardwareIssue;
-            _softwareIssue = softwareIssue;
-            _networkIssue = networkIssue;
-            _notListed = notListed;
-            _writeEmail = writeEmail;
+            _issue = Issue;
+            _writeEmail = Email;
 
-            if (hardwareIssue.Contains("Hardware"))
+            if (Issue.Contains("Hardware"))
             {
                 _p5++; // if the customer write (Hardware) then P5 counter will be increased from 0 to 1.
             }
@@ -43,7 +41,7 @@ namespace IT_Service_Desk
             else
             {
 
-                if (softwareIssue.Contains("Software"))
+                if (Issue.Contains("Software"))
                 {
                     _p3++; // if the customer write (Software) then P3 counter will be increased from 0 to 1.
                 }
@@ -52,7 +50,7 @@ namespace IT_Service_Desk
                 {
 
 
-                    if (networkIssue.Contains("Networ"))
+                    if (Issue.Contains("Networ"))
                     {
 
                         _p1++; // if the customer write (Network) then P1 counter will be increased from 0 to 1.
@@ -60,7 +58,7 @@ namespace IT_Service_Desk
                     else
                     {
 
-                        if (notListed.Contains("Not listed"))
+                        if (Issue.Contains("Not listed"))
                         {
                             _p2++; // if the customer write (Not Listed) then P2 counter will be increased from 0 to 1.
                         }
@@ -70,24 +68,11 @@ namespace IT_Service_Desk
             }
         }
     
-        public string getHardwareIssue()
-        {
-            return _hardwareIssue;
-        }
-        public string getSoftwareIssue()
-        {
-            return _softwareIssue;
+
+        public string getIssue() {
+            return _issue;
         }
 
-        public string getNetworkIssue()
-        {
-            return _networkIssue;
-        }
-
-        public string getNotListedIssue()
-        {
-            return _notListed;
-        }
 
        public string getwriteEmail()
         {
