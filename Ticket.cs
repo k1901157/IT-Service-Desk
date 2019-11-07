@@ -6,23 +6,23 @@ namespace IT_Service_Desk
 {
     abstract class Ticket
     {
+        protected string _categoryAndPriority;// protected because we need to use it in Incident Class.
 
-        private string _priority1;
-        private string _priority2;
-        private string _priority3;
-        private string _priority5;
+        //will be used to give random numbers for Incidents and Orders.
+        private static int _ticketNumber;
 
-        private static int _ticketNumber;//will be used to give random number
-
-        private static int _ticketCount = 0; //initialize Ticket counter.
+        //initialize Ticket counter.
+        private static int _ticketCount = 0; 
 
 
-        public Ticket()
+        public Ticket(string categoryAndPriority)
         {
             //once the Ticket has been created, Ticket counter will be increased from 0 to 1.
             _ticketCount++;
-
+            _categoryAndPriority = categoryAndPriority;//set category and priority(Hardware issue with priority 5) using string in the main program.
         }
+
+
         // get Ticket Count.
         public static int GetTicketCount()
         {
@@ -41,14 +41,18 @@ namespace IT_Service_Desk
             _ticketNumber = result;
 
             return _ticketNumber;
+        }
 
+        //get Incident category and priority as per the Incident Type.
+        public string getCategoryAndPriority()
+        {
+            return _categoryAndPriority;
         }
 
         internal static void Add(Ticket newTicket)
         {
             
         }
-
 
     }
 }

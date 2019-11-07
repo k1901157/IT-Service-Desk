@@ -6,36 +6,29 @@ namespace IT_Service_Desk
 {
     class Order : Ticket
     {
-        private int _device;
-        private string _deviceType;
-        private string _deviceTypeJustifiation;
-        private string _accessoriesType;
-        private string _accessoriesTypeJustifiation;
-
-
-
-        //initialize Priority 5 counter.
-        private static int _p5 = 0;
+        private int _device; //will be used to set the max number of devices to be ordered.
+        private string _category; //Laptop, Desktop, IP Phone, Monitor,.....etc.
+        private string _Justifiation;
 
 
         //initialize Order counter.
         private static int _orderCount = 0;
 
-        //Max number of devices or Orders to be ordered by customers.
+        //initialize Priorities 5 counter, because in Order ticket we have only Priority 5.
+        private static int _p5 = 0;
+
+        //Max number of devices to be ordered by customers.
         private const int MAX_DEVICE = 1; 
 
-        public Order(string deviceType, string deviceTypeJustifiation ) : base()
+        public Order(string Justifiation, string category ) : base(category)
         {
-
-            _deviceType = deviceType;
-            _deviceTypeJustifiation = deviceTypeJustifiation;
+            _Justifiation = Justifiation;// justification email from the customer.
+            _category = category;//Laptop, Desktop, IP Phone, Monitor,.....etc.
             _orderCount++; //once the Order has been created, Order counter will be increased from 0 to 1.
             _p5++; //once the Order has been created, P5 counter will be increased from 0 to 1.
-
-
         }
 
-        //set maximum number of Devices or Orders to be Ordered by customers.
+        //set maximum number of Devices to be Ordered by customers.
         public bool deviceRequirement(int requirment)
         {
 
@@ -52,34 +45,32 @@ namespace IT_Service_Desk
             }
         }
 
-        //get maximum number of Devices or Orders to be Ordered by customers.
+        //get maximum number of Devices to be Ordered by customers.
         public int getDeviceRequirement()
         {
             return _device;
         }
-
-        public string getDeviseType()
+        //Laptop, Desktop,........etc.
+        public string getCategory()
         {
-            return _deviceType;
+            return _category;
 
         }
 
-        public string getDeviceTypeJustification()
+        public string getJustification()
         {
-            return _deviceTypeJustifiation;
+            return _Justifiation;
+        }
+
+        public static int getOrderCount()
+        {
+            return _orderCount;
         }
 
         public static int GetP5Count()
         {
             return _p5;
         }
-
-        public static int GetOrderCount()
-        {
-            return _orderCount;
-        }
-
-
     }
 
 }
