@@ -4,18 +4,22 @@ using System.Text;
 
 namespace IT_Service_Desk
 {
-    class Employee
+    class Employee : TI_Service_Desk.Program
     {
 
-        private int _id;
+        private static int _id;
         private string _firstName;
         private string _lastName;
         private string _email;
         private int _phoneNumber;
 
+        //here we added date to be able to creating diffrent file names in every time we are runing the app.
+        //here we are using string instead of (Date Time) because it is not accepttable to save the files with (: and /) if we are using (Date Time)
+        private static string _date;
 
-        
-        public Employee(int id, string firstName, string lastName, int phoneNumber, string email)
+
+
+        public Employee(int id, string firstName, string lastName, int phoneNumber, string email, string date)
         {
 
             _id = id;
@@ -23,9 +27,10 @@ namespace IT_Service_Desk
             _lastName = lastName;
             _phoneNumber = phoneNumber;
             _email = email;
+            _date = date;
         }
 
-        public int getId()
+        public static int getId()
         {
             return _id;
         }
@@ -50,9 +55,16 @@ namespace IT_Service_Desk
             return _email;
         }
 
-       // private static string setEmail()
-       // we can use it also to make sure that customers writing their emails in correct way with (@).
-       public string setEmail()
+        //we are using this methode to be able to create diffrent file names.
+
+        public static string getDate()
+        {
+            return _date;
+        }
+
+        // private static string setEmail()
+        // we can use it also to make sure that customers writing their emails in correct way with (@).
+        public string setEmail()
         {
 
             string email = _email;
@@ -62,7 +74,7 @@ namespace IT_Service_Desk
                 Console.Write("Email: ");
                 email = Console.ReadLine();
             } while (!email.Contains("@"));
-            
+
             return email;
         }
 

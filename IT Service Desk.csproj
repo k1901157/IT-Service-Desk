@@ -6,4 +6,8 @@
     <RootNamespace>IT_Service_Desk</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Interface1.cs" />
+  </ItemGroup>
+
 </Project>

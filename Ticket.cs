@@ -4,15 +4,17 @@ using System.Text;
 
 namespace IT_Service_Desk
 {
-    abstract class Ticket
+    abstract class Ticket : TI_Service_Desk.Program
     {
         protected string _categoryAndPriority;// protected because we need to use it in Incident Class.
 
         //will be used to give random numbers for Incidents and Orders.
         private static int _ticketNumber;
 
+        public static int _ticketNumberToFile;
+
         //initialize Ticket counter.
-        private static int _ticketCount = 0; 
+        private static int _ticketCount = 0;
 
 
         public Ticket(string categoryAndPriority)
@@ -39,6 +41,7 @@ namespace IT_Service_Desk
             int result = _random.Next();
 
             _ticketNumber = result;
+            _ticketNumberToFile = result;
 
             return _ticketNumber;
         }
@@ -51,7 +54,7 @@ namespace IT_Service_Desk
 
         internal static void Add(Ticket newTicket)
         {
-            
+
         }
 
     }

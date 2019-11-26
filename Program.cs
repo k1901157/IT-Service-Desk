@@ -3,7 +3,7 @@ using System.Collections.Generic; // This is needed for lists
 using IT_Service_Desk;
 using System.IO;
 
-namespace WS5_Cars_Inheritance
+namespace TI_Service_Desk
 {
     class Program
     {
@@ -36,8 +36,11 @@ namespace WS5_Cars_Inheritance
             Console.Write("Email: ");// the customer will enter Email.
             string email = Console.ReadLine();
 
+            Console.Write("Date (DD.MM.YYYY): ");// the customer will enter Email.
+            string date = Console.ReadLine();
+
             //creating list for the customer entries .
-            Employee newEmployee = new Employee(ID, firstName, lastName, phoneNumber, email);
+            Employee newEmployee = new Employee(ID, firstName, lastName, phoneNumber, email, date);
             employees.Add(newEmployee);
 
             //create a list for Tickets 
@@ -237,21 +240,21 @@ namespace WS5_Cars_Inheritance
 
 
             //saving data in the file.
-            File.WriteAllLines("IT_Service_Desk.txt", lists);
-
-
+           // File.WriteAllLines($"IT_Service_Desk{Ticket._ticketNumberToFile}.txt", lists);
+         
 
             //here we will save all customer data (contact Details).
             foreach (Employee employee in employees)
             {
                 //save data to the file
-                lists.Add($"ID: {employee.getId()}");
+                lists.Add($"ID: {Employee.getId()}");
                 lists.Add($"Full Name: {employee.getLastName()}, {employee.getFirstName()}");
                 lists.Add($"Phone Number: {employee.getPhoneNumber()}");
                 lists.Add($"Email: {employee.getEmail()}" + "\n");
 
                 //saving data in the file.
-                File.WriteAllLines("IT_Service_Desk.txt", lists);
+                //creating file as per the ID and the Date.
+                File.WriteAllLines("IT_Service_Desk" + " " + $"{Employee.getId()}--{Employee.getDate()}.txt", lists);
             }
 
             //here we will save all the Incident's details that we need.
@@ -264,8 +267,9 @@ namespace WS5_Cars_Inheritance
                 lists.Add("We will check your issue, and we will contact you as per your Ticket priority" + "\n");
                 lists.Add($"Your Incident Number is " + "TI-" + Ticket.getTiketNumber() + "\n");
 
-                //saving date in the file.
-                File.WriteAllLines("IT_Service_Desk.txt", lists);
+                //saving data in the file.
+                //creating file as per the ID and the Date.
+                File.WriteAllLines("IT_Service_Desk" + " " + $"{Employee.getId()}--{Employee.getDate()}.txt", lists);
             }
 
             //here we will save all the Order's details that we need.
@@ -279,16 +283,16 @@ namespace WS5_Cars_Inheritance
                 lists.Add($"Your Order Number is " + "TO-" + Ticket.getTiketNumber() + "\n");
 
                 //saving data in the file.
-                File.WriteAllLines("IT_Service_Desk.txt", lists);
+                //creating file as per the ID and the Date.
+                File.WriteAllLines("IT_Service_Desk"+" "+$"{Employee.getId()}--{Employee.getDate()}.txt", lists);
             }
 
-            //here print out all data tha we saved in the file IT_Service_Desk.txt
-            string[] printData = File.ReadAllLines("IT_Service_Desk.txt");
+                //here print out all data tha we saved in the file IT_Service_Desk.txt
+                string[] printData = File.ReadAllLines($"IT_Service_Desk" + " " + $"{Employee.getId()}--{Employee.getDate()}.txt");
             foreach (var item in printData)
             {
                 Console.WriteLine(item);
             }
-
         }
     }
 }
