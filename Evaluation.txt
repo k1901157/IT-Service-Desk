@@ -1,0 +1,8 @@
+row34    int phoneNumber = int.Parse(Console.ReadLine()); //when program asks phonenumber, it fails if you use areacode number number like +358401234567
+
+
+ row 57-59             Console.WriteLine("(1) - Incident");
+                Console.WriteLine("(2) - Order");
+                Console.WriteLine("(0) - End");
+                response = int.Parse(Console.ReadLine()); // Program fails if user uses lower case letters.
+ 
